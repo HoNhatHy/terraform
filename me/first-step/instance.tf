@@ -26,15 +26,7 @@ resource "azurerm_virtual_machine" "demo-instance" {
   os_profile {
     computer_name  = "demo-instance"
     admin_username = "demo"
-    #admin_password = "1204$Honhathy"
-  }
-
-  os_profile_linux_config {
-    disable_password_authentication = true
-    ssh_keys {
-      key_data = file("mykey.pub")
-      path     = "/home/demo/.ssh/authorized_keys"
-    }
+    admin_password = "1204$Honhathy"
   }
 }
 
@@ -42,7 +34,6 @@ resource "azurerm_network_interface" "demo-instance" {
   name                      = "${var.prefix}-instance1"
   location                  = var.location
   resource_group_name       = azurerm_resource_group.demo.name
-  network_security_group_id = azurerm_network_security_group.allow-ssh.id
 
   ip_configuration {
     name                          = "instance1"
